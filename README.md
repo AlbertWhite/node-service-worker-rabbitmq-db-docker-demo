@@ -9,3 +9,4 @@ Service emit event to worker throught rabbitmq and save data into db
 5. Set up the event listener from the worker with docker
 6. Set up db with docker 
 7. Consume the message and write into a db
+8. Set up github actions for CI, CD
