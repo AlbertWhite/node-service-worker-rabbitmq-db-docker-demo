@@ -2,8 +2,8 @@
 
 Service emit event to worker throught rabbitmq and save data into db
 
-1. Set up an express server
-2. Set up docker to launch that express server
+1. Set up an express server done
+2. Set up docker to launch that express server done
 3. Set up rabbitmq with docker
 4. Send an event from the server
 5. Set up the event listener from the worker with docker
