@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev src/server.ts",
+    "dev:producer": "ts-node-dev src/event-producer-server.ts",
+    "dev:worker": "ts-node-dev src/event-listener-worker.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start:producer": "node dist/event-producer-server.js",
+    "start:worker": "node dist/event-listener-worker.js"
   },
   "author": "",
   "license": "ISC",

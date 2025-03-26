@@ -1,15 +1,24 @@
 version: '3.8'
 
 services:
-  app:
+  producer:
     build: .
     ports:
       - '3000:3000'
     environment:
-      NODE_ENV: production
-    command: npm run dev
+      NODE_ENV: development
+    command: npm run dev:producer
     volumes:
       - .:/app
+      - /app/node_modules
+  worker:
+    build: .
+    environment:
+      NODE_ENV: development
+    command: npm run dev:worker
+    volumes:
+      - .:/app
+      - /app/node_modules
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
