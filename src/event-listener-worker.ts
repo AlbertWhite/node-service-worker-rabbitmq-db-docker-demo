@@ -1,6 +1,24 @@
 import amqp from 'amqplib';
+import { Client } from 'pg';
 
 const queue = 'demo_event_queue';
+
+const databaseClient = new Client({
+  host: 'postgres', // Use the service name defined in docker-compose.yml
+  port: 5432,
+  user: 'myuser',
+  password: 'mypassword',
+  database: 'mydatabase',
+});
+
+async function connectPostgres() {
+  try {
+    await databaseClient.connect();
+    console.log('Connected to PostgreSQL');
+  } catch (error) {
+    console.error('Error connecting to PostgreSQL:', error);
+  }
+}
 
 async function connectRabbitMQ() {
   try {
@@ -27,3 +45,4 @@ async function connectRabbitMQ() {
 }
 
 connectRabbitMQ();
+connectPostgres();
