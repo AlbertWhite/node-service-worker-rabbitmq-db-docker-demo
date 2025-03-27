@@ -1,19 +1,16 @@
-# node-service-worker-rabbitmq-db-docker-demo
+### What
 
-Service emit event to worker throught rabbitmq and save data into db
+A micro service emit an event though rabbitmq, the worker will read this message from the same channel, and save data from this event into a db.
 
-1. Set up an express server done
-2. Set up docker to launch that express server done
-3. Set up rabbitmq with docker
-4. Send an event from the server
-5. Set up the event listener from the worker with docker
-6. Set up db with docker
-   6.5 start the migration for each run
-7. Consume the message and write into a db
+### How
 
-Improvement:
-config package
-make
-depending in docker-compose
-create a method
-add cucumber test
+Docker-compose to start the rabbitmq, postgre, event producer in node server, event consumer. The event consumer will connnect to the same queue and insert data into database.
+
+### Future Improvement:
+
+- Use config package
+- Implement make file
+- Implement a graphql api
+- Split the project into multiple src
+- Implement a frontend with nextjs, to send message from front to backend, then emit the event
+- Implement cucumber test for the graphql api
