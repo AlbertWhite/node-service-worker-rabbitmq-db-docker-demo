@@ -1,5 +1,6 @@
 import amqp from 'amqplib';
 import { Client } from 'pg';
+import { v4 as uuidv4 } from 'uuid';
 
 const queue = 'demo_event_queue';
 
@@ -31,12 +32,18 @@ async function connectRabbitMQ() {
     console.log('Waiting for messages in queue:', queue);
 
     // Consume messages from the queue
-    channel.consume(queue, (message) => {
+    channel.consume(queue, async (message) => {
       if (message) {
         const content = message.content.toString();
         console.log(`Received message: ${content}`);
         // Acknowledge the message
         channel.ack(message);
+
+        const query =
+          'INSERT INTO message (message_uuid, message) VALUES ($1, $2)';
+        const values = [uuidv4(), content];
+        await databaseClient.query(query, values);
+        console.log('Message written to database');
       }
     });
   } catch (error) {
@@ -44,5 +51,7 @@ async function connectRabbitMQ() {
   }
 }
 
-connectRabbitMQ();
-connectPostgres();
+(async () => {
+  await connectPostgres();
+  await connectRabbitMQ();
+})();
